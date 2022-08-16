@@ -1,3 +1,3 @@
 
-rootProject.name = "eyed3-fixed"
+rootProject.name = "eyed3"
 
