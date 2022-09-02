@@ -1,5 +1,6 @@
 package io.read.header
 
+import io.read.UnexpectedEndOfStreamException
 import model.header.Id3v2Header
 import model.header.Id3v2HeaderFlags
 import model.header.Id3v2Version
@@ -74,4 +75,3 @@ class Id3v2HeaderReader : HeaderReader {
 class UnrecognizedVersionException(message: String) : Exception(message)
 class InvalidIdentifierException(message: String) : Exception(message)
 class InvalidSizeException(message: String) : Exception(message)
-class UnexpectedEndOfStreamException : Exception("Stream ended unexpectedly while reading header")

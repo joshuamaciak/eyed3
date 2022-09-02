@@ -1,13 +1,6 @@
 package io.read
 
-import io.read.header.HeaderReader
 import io.read.header.Id3v2HeaderReader
-import model.header.Id3v2Header
-import model.header.Id3v2HeaderFlags
-import model.header.Id3v2Version
-import java.io.InputStream
-import java.nio.charset.StandardCharsets
+import io.read.header.extended.Id3v2ExtendedHeaderReader
 
-abstract class Id3v2TagReader : TagReader(headerReader = Id3v2HeaderReader()) {
-
-}
+abstract class Id3v2TagReader(val extendedHeaderReader: Id3v2ExtendedHeaderReader) : TagReader(headerReader = Id3v2HeaderReader())
