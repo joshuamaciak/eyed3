@@ -1,5 +1,6 @@
 package io.read.header
 
+import io.read.UnexpectedEndOfStreamException
 import model.header.Id3v2Version
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Nested
