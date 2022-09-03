@@ -5,11 +5,10 @@ import model.header.Id3v2Header
 import model.header.Id3v2HeaderFlags
 import model.header.Id3v2Version
 import java.io.InputStream
-import java.lang.Exception
 import java.nio.charset.StandardCharsets
 
 class Id3v2HeaderReader : HeaderReader {
-    override fun readHeader(stream: InputStream): Id3v2Header {
+    override fun read(stream: InputStream): Id3v2Header {
         val headerBytes = ByteArray(ID3V2_HEADER_LEN)
         if (stream.read(headerBytes) != headerBytes.size) {
             throw UnexpectedEndOfStreamException()

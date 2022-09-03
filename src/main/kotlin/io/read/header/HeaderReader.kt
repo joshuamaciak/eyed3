@@ -1,8 +1,8 @@
 package io.read.header
 
+import io.read.Reader
 import model.header.Id3v2Header
 import java.io.InputStream
 
-interface HeaderReader {
-    fun readHeader(stream: InputStream): Id3v2Header
+interface HeaderReader: Reader<Id3v2Header> {
 }

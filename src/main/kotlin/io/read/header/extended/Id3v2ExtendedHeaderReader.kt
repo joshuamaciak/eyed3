@@ -1,13 +1,14 @@
 package io.read.header.extended
 
+import io.read.Reader
 import io.read.UnexpectedEndOfStreamException
 import model.header.extended.Id3v2ExtendedHeader
 import model.header.extended.Id3v2ExtendedHeaderFlags
 import java.io.InputStream
 import java.nio.ByteBuffer
 
-class Id3v2ExtendedHeaderReader {
-    fun read(stream: InputStream): Id3v2ExtendedHeader {
+class Id3v2ExtendedHeaderReader : Reader<Id3v2ExtendedHeader> {
+    override fun read(stream: InputStream): Id3v2ExtendedHeader {
         val size = readSize(stream)
         val flags = readExtendedFlags(stream)
         val sizeOfPadding = readSize(stream)

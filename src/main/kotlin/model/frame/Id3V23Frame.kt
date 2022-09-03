@@ -3,12 +3,12 @@ package model.frame
 import TextEncoding
 import model.frame.header.Id3v23FrameHeader
 
-sealed class Id3v23Frame(val header: Id3v23FrameHeader) {
+sealed class Id3v2Frame(val header: Id3v23FrameHeader) {
     sealed class TextInformationFrame(
         header: Id3v23FrameHeader,
         val textEncoding: TextEncoding,
         val information: String
-    ) : Id3v23Frame(header) {
+    ) : Id3v2Frame(header) {
         // TODO: define all the text info frames
         class UserDefined(
             header: Id3v23FrameHeader,
@@ -18,7 +18,7 @@ sealed class Id3v23Frame(val header: Id3v23FrameHeader) {
         ) : TextInformationFrame(header, textEncoding, description + value)
     }
 
-    sealed class UrlLinkFrame(header: Id3v23FrameHeader, val url: String) : Id3v23Frame(header) {
+    sealed class UrlLinkFrame(header: Id3v23FrameHeader, val url: String) : Id3v2Frame(header) {
         class UserDefined(
             header: Id3v23FrameHeader,
             val textEncoding: TextEncoding,
@@ -31,7 +31,7 @@ sealed class Id3v23Frame(val header: Id3v23FrameHeader) {
         header: Id3v23FrameHeader,
         val textEncoding: TextEncoding,
         val people: List<String>
-    ) : Id3v23Frame(header)
+    ) : Id3v2Frame(header)
 
     sealed class AttachedPicture(
         val textEncoding: TextEncoding,
