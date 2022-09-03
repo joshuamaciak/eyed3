@@ -3,6 +3,7 @@ package io.read.header
 import io.read.UnexpectedEndOfStreamException
 import model.header.Id3v2Version
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -12,6 +13,11 @@ import kotlin.test.assertEquals
 internal class Id3v2HeaderReaderTest {
     private val headerReader = Id3v2HeaderReader()
     private var stream = ByteArrayInputStream(identifier + version23 + ByteArray(5))
+
+    @BeforeEach
+    fun setup() {
+        stream = ByteArrayInputStream(identifier + version23 + ByteArray(5))
+    }
 
     @Test
     fun `should throw when input is too small`() {

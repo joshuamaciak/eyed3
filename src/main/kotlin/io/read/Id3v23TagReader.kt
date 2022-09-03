@@ -3,17 +3,19 @@ package io.read
 import io.read.header.extended.Id3v2ExtendedHeaderReader
 import model.frame.Id3v23Frame
 import model.header.extended.Id3v2ExtendedHeader
+import model.tag.Id3v2Tag
 import model.tag.Tag
 import java.io.InputStream
 
 class Id3v23TagReader : Id3v2TagReader(extendedHeaderReader = Id3v2ExtendedHeaderReader()) {
     override fun read(stream: InputStream): Tag {
         val header = headerReader.readHeader(stream)
+        val synchronizedStream = MpegSynchronizedInputStream(stream, header.flags.unsynchronization)
         val extendedHeader = if (header.flags.extendedHeader) {
-            extendedHeaderReader.read(stream, header.flags.unsynchronization)
+            extendedHeaderReader.read(synchronizedStream)
         } else null
 
-        // Read first frame?
+        TODO("return tag")
     }
 
 
