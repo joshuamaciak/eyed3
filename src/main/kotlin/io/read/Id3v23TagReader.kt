@@ -1,31 +1,23 @@
 package io.read
 
-import io.read.header.Id3v2HeaderReader
+import io.read.header.extended.Id3v2ExtendedHeaderReader
 import model.frame.Id3v23Frame
-import model.header.Id3v2Header
-import model.header.extended.Id3V23ExtendedHeader
+import model.header.extended.Id3v2ExtendedHeader
+import model.tag.Id3v2Tag
 import model.tag.Tag
 import java.io.InputStream
-import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
 
-class Id3v23TagReader : Id3v2TagReader() {
+class Id3v23TagReader : Id3v2TagReader(extendedHeaderReader = Id3v2ExtendedHeaderReader()) {
     override fun read(stream: InputStream): Tag {
         val header = headerReader.readHeader(stream)
+        val synchronizedStream = MpegSynchronizedInputStream(stream, header.flags.unsynchronization)
         val extendedHeader = if (header.flags.extendedHeader) {
-            readExtendedHeader(stream)
+            extendedHeaderReader.read(synchronizedStream)
         } else null
 
-        //
-
-        // for f of frames
-        //   read f
-        TODO()
+        TODO("return tag")
     }
 
-    fun readExtendedHeader(stream: InputStream): Id3V23ExtendedHeader {
-        TODO("implement readExtendedHeader()")
-    }
 
     fun readFrames(stream: InputStream): List<Id3v23Frame> {
         val frames = emptyList<Id3v23Frame>()
