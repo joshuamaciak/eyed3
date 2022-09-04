@@ -1,26 +1,26 @@
 package model.frame
 
 import TextEncoding
-import model.frame.header.Id3v23FrameHeader
+import model.frame.header.Id3v2FrameHeader
 
-sealed class Id3v2Frame(val header: Id3v23FrameHeader) {
+sealed class Id3v2Frame(val header: Id3v2FrameHeader) {
     sealed class TextInformationFrame(
-        header: Id3v23FrameHeader,
+        header: Id3v2FrameHeader,
         val textEncoding: TextEncoding,
         val information: String
     ) : Id3v2Frame(header) {
         // TODO: define all the text info frames
         class UserDefined(
-            header: Id3v23FrameHeader,
+            header: Id3v2FrameHeader,
             textEncoding: TextEncoding,
             val description: String,
             val value: String
         ) : TextInformationFrame(header, textEncoding, description + value)
     }
 
-    sealed class UrlLinkFrame(header: Id3v23FrameHeader, val url: String) : Id3v2Frame(header) {
+    sealed class UrlLinkFrame(header: Id3v2FrameHeader, val url: String) : Id3v2Frame(header) {
         class UserDefined(
-            header: Id3v23FrameHeader,
+            header: Id3v2FrameHeader,
             val textEncoding: TextEncoding,
             val description: String,
             url: String
@@ -28,7 +28,7 @@ sealed class Id3v2Frame(val header: Id3v23FrameHeader) {
     }
 
     sealed class InvolvedPeopleList(
-        header: Id3v23FrameHeader,
+        header: Id3v2FrameHeader,
         val textEncoding: TextEncoding,
         val people: List<String>
     ) : Id3v2Frame(header)

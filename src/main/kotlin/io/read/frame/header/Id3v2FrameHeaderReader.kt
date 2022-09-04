@@ -3,15 +3,15 @@ package io.read.frame.header
 import io.read.Reader
 import io.read.UnexpectedEndOfStreamException
 import model.Flags
-import model.frame.header.Id3v23FrameHeader
+import model.frame.header.Id3v2FrameHeader
 import model.frame.header.Id3v2FrameFlags
 import java.io.InputStream
 import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
 
-class Id3v2FrameHeaderReader : Reader<Id3v23FrameHeader> {
-    override fun read(stream: InputStream): Id3v23FrameHeader {
-        return Id3v23FrameHeader(id = readId(stream), size = readSize(stream), flags = readFlags(stream))
+class Id3v2FrameHeaderReader : Reader<Id3v2FrameHeader> {
+    override fun read(stream: InputStream): Id3v2FrameHeader {
+        return Id3v2FrameHeader(id = readId(stream), size = readSize(stream), flags = readFlags(stream))
     }
 
     private fun readId(stream: InputStream): String {

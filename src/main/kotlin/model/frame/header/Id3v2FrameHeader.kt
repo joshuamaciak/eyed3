@@ -1,6 +1,6 @@
 package model.frame.header
 
-class Id3v23FrameHeader(val id: String, val size: Int, val flags: Id3v2FrameFlags)
+class Id3v2FrameHeader(val id: String, val size: Int, val flags: Id3v2FrameFlags)
 
 class Id3v2FrameFlags(
     val tagAlterPreservation: Boolean,
