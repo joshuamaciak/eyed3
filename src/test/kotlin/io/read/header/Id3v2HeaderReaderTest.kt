@@ -22,20 +22,20 @@ internal class Id3v2HeaderReaderTest {
     @Test
     fun `should throw when input is too small`() {
         stream = ByteArrayInputStream(identifier + version23 + ByteArray(1))
-        assertThrows<UnexpectedEndOfStreamException> { headerReader.readHeader(stream) }
+        assertThrows<UnexpectedEndOfStreamException> { headerReader.read(stream) }
     }
     @Nested
     inner class Identifier {
         @Test
         fun `should decode identifier when present`() {
-            val header = headerReader.readHeader(stream)
+            val header = headerReader.read(stream)
             assertEquals(Id3v2HeaderReader.ID3V2_HEADER_IDENTIFIER, header.identifier)
         }
 
         @Test
         fun `should throw when invalid identifier is present`() {
             stream = ByteArrayInputStream(identifierUnknown + version23 + ByteArray(5))
-            assertThrows<InvalidIdentifierException> { headerReader.readHeader(stream) }
+            assertThrows<InvalidIdentifierException> { headerReader.read(stream) }
         }
     }
 
@@ -43,21 +43,21 @@ internal class Id3v2HeaderReaderTest {
     inner class Version {
         @Test
         fun `should set version to 2_3 when v3 is present`() {
-            val header = headerReader.readHeader(stream)
+            val header = headerReader.read(stream)
             assertEquals(Id3v2Version.Version2_3, header.version)
         }
 
         @Test
         fun `should set version to 2_2 when v2 is present`() {
             stream = ByteArrayInputStream(identifier + version22 + ByteArray(5))
-            val header = headerReader.readHeader(stream)
+            val header = headerReader.read(stream)
             assertEquals(Id3v2Version.Version2_2, header.version)
         }
 
         @Test
         fun `should throw when unrecognized version is present`() {
             stream = ByteArrayInputStream(identifier + versionUnknown + ByteArray(5))
-            assertThrows<UnrecognizedVersionException> { headerReader.readHeader(stream) }
+            assertThrows<UnrecognizedVersionException> { headerReader.read(stream) }
         }
     }
 
@@ -66,21 +66,21 @@ internal class Id3v2HeaderReaderTest {
         @Test
         fun `should set unsychronization to true when flag is set`() {
             stream = ByteArrayInputStream(identifier + version23 + flagsUnsynchronization + ByteArray(4))
-            val header = headerReader.readHeader(stream)
+            val header = headerReader.read(stream)
             assertTrue(header.flags.unsynchronization)
         }
 
         @Test
         fun `should set extendedHeader to true when flag is set`() {
             stream = ByteArrayInputStream(identifier + version23 + flagsExtendedHeader + ByteArray(4))
-            val header = headerReader.readHeader(stream)
+            val header = headerReader.read(stream)
             assertTrue(header.flags.extendedHeader)
         }
 
         @Test
         fun `should set experimental to true when flag is set`() {
             stream = ByteArrayInputStream(identifier + version23 + flagsExperimental + ByteArray(4))
-            val header = headerReader.readHeader(stream)
+            val header = headerReader.read(stream)
             assertTrue(header.flags.experimental)
         }
     }
@@ -90,14 +90,14 @@ internal class Id3v2HeaderReaderTest {
         @Test
         fun `should decode synchsafe size`() {
             stream = ByteArrayInputStream(identifier + version23 + flagsUnsynchronization + synchsafeSize)
-            val header = headerReader.readHeader(stream)
+            val header = headerReader.read(stream)
             assertEquals(header.size, 556679)
         }
 
         @Test
         fun `should throw when size is invalid`() {
             stream = ByteArrayInputStream(identifier + version23 + flagsUnsynchronization + invalidSize)
-            assertThrows<InvalidSizeException> { headerReader.readHeader(stream) }
+            assertThrows<InvalidSizeException> { headerReader.read(stream) }
         }
     }
 
